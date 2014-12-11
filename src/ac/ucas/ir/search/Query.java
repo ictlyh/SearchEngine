@@ -17,7 +17,7 @@ public class Query {
 		querywords=null;
 	}
 	
-	void  getQueryTerms(StopWords stopwords){
+	public void  getQueryTerms(StopWords stopwords){
 		//List<String> result = null;
 		Tokenize tokenize = new Tokenize(query, "UTF-8");
 		while(tokenize.hasMoreTokens()){
@@ -28,12 +28,17 @@ public class Query {
 		//return querywords;
 	}
 	
-	String getQuery()
+	public void setquerywords(List<String> words)
+	{
+		querywords=words;
+	}
+
+	public String getQuery()
 	{
 		return query;
 	}
 	
-	List<String> getQuerywords()
+	public List<String> getQuerywords()
 	{
 		return querywords;
 	}

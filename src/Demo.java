@@ -56,8 +56,8 @@ public class Demo {
 		
 		Calendar start = Calendar.getInstance();
 		DataInput dataInput = new DataInput();
-		//dataInput.loadDocumentFromFile("data.json");
-		dataInput.loadDocumentFromFile("datainput.txt");
+		dataInput.loadDocumentFromFile("newest.json");
+		//dataInput.loadDocumentFromFile("datainput.txt");
 		Calendar end = Calendar.getInstance();
 		System.out.println("Building index using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " milliseconds");
 

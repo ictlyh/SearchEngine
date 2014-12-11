@@ -3,10 +3,11 @@ import java.util.Iterator;
 import java.util.List;
 import ac.ucas.ir.index.*;
 
-public class TFIDFSimilarity {
+public class TfidfSimilarity {
 	private float ifidfsimilar;
 	private int docID;
-	public TFIDFSimilarity(int docID)
+	
+	public TfidfSimilarity(int docID)
     {
     	this.docID=docID;
     }
@@ -29,17 +30,18 @@ public class TFIDFSimilarity {
 	}
    	  
 	
-    public void Calutfidfsimilarity(int documentsize,PostList list,List<String> querywords)//文件数目，全局索引，查询字段
+    public void Calutfidfsimilarity(int documentsize,PostList list,List<String> querywords)//鏂囦欢鏁扮洰锛屽叏灞€绱㈠紩锛屾煡璇㈠瓧娈?
     {
-    	 Documentstf docitf=new Documentstf(docID);
-    	 docitf.getTfwightofDocuments(list);
-    	 Querytfidf  termtfidf=new Querytfidf(querywords);
+    	 DocumentsTfidf docitf=new DocumentsTfidf(docID);
+    	 docitf.Calutfidfweight(documentsize, list);
+    	 QueryTfidf  termtfidf=new QueryTfidf(querywords);
     	 termtfidf.Calutfidfweight(documentsize, list);
     	 float result=0;
     	 result=Calutwofvector(docitf.getIfweight(),termtfidf.getTfidfweight());
     	 float temp1=(float) Math.sqrt(Calutwofvector(docitf.getIfweight(),docitf.getIfweight()));
     	 float temp2=(float) Math.sqrt(Calutwofvector(termtfidf.getTfidfweight(),termtfidf.getTfidfweight()));
-    	 result=result/(temp1*temp2); 	 
+    	 result=result/(temp1*temp2); 
+    	 ifidfsimilar=result;
     }
 
 }

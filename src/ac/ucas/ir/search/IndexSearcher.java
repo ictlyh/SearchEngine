@@ -1,4 +1,4 @@
-package ac.ucas.ir.search;
+﻿package ac.ucas.ir.search;
 
 import java.util.Iterator;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ac.ucas.ir.search;
+﻿package ac.ucas.ir.search;
 
 public class DocidTfidfsimilar implements Comparable<DocidTfidfsimilar>  {
 	private int docID;

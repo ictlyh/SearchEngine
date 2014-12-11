@@ -1,4 +1,4 @@
-package ac.ucas.ir.search;
+﻿package ac.ucas.ir.search;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

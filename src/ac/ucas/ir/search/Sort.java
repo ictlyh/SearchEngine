@@ -1,4 +1,4 @@
-package ac.ucas.ir.search;
+﻿package ac.ucas.ir.search;
 
 import java.util.ArrayList;
 import java.util.Collections;

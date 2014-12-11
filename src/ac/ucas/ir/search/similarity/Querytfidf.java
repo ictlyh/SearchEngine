@@ -1,4 +1,4 @@
-package ac.ucas.ir.search.similarity;
+﻿package ac.ucas.ir.search.similarity;
 //import java.util.*;
 
 import ac.ucas.ir.index.*;

@@ -1,17 +1,21 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Calendar;
+
 import ac.ucas.ir.document.Document;
 import ac.ucas.ir.index.IndexReader;
 import ac.ucas.ir.index.IndexWriter;
 import ac.ucas.ir.index.PostList;
+import ac.ucas.ir.search.*;
+import ac.ucas.ir.search.IndexSearcher;
+import ac.ucas.ir.search.Query;
 import ac.ucas.ir.store.DataInput;
 import ac.ucas.ir.store.DataOutput;
 import ac.ucas.ir.store.IndexInput;
 import ac.ucas.ir.store.IndexOutput;
 
 public class Demo {
-
 	public static void main(String[] args){
 		/*Analyzer analyzer = new Analyzer();
 		String result = analyzer.tokenizeByNLPIR("这是一个测试，中国共产党","UTF-8");
@@ -56,16 +60,41 @@ public class Demo {
 		
 		Calendar start = Calendar.getInstance();
 		DataInput dataInput = new DataInput();
-		dataInput.loadDocumentFromFile("newest.json");
-		//dataInput.loadDocumentFromFile("datainput.txt");
+		dataInput.loadDocumentFromFile("datainput.txt");
 		Calendar end = Calendar.getInstance();
-		System.out.println("Building index using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " milliseconds");
+		System.out.println("Building index using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " millseconds");
 
 		start = Calendar.getInstance();
 		IndexReader ir = new IndexReader();
 		PostList index = ir.loadIndexFromDirectory("index");
 		end = Calendar.getInstance();
-		System.out.println("loading index from file using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " milliseconds");
-		//index.print();
+		System.out.println("loading index from file using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " millseconds");
+	//	index.print();
+		
+		IndexSearcher searcher=new IndexSearcher(); // init a searcher
+		int documentsize=22;//the total number of documents;
+		 
+		Query query =new Query(new String("主教练"));
+	    //query.getQueryTerms(stopwords);  I need stopwords ,so I just choose the setquerywords without it later;
+		List<String>words=new ArrayList<String>();
+		//words.add(new String("主教练"));
+		words.add(new String("拜伦"));
+		//words.add(new String("林书豪"));
+		 query.setquerywords(words);
+		 List<Integer> docidl=new ArrayList<Integer>();
+		    
+		 docidl=searcher.getdocIDlistbyquery(query, index);
+		 List<Integer> docids=new ArrayList<Integer>(); //the all  responds;
+		    //int documentsize=3;
+		 List<Integer> topKdocids=new ArrayList<Integer>();
+	     docids=searcher.search(query, docidl, documentsize, index);
+	     int topK=5;
+	     topKdocids=searcher.getTopKDocuments(docids, topK); 
+	     Dataout out=new Dataout();
+	     out.PrintResult(out.getDocumentlist(docids, "Datainput.txt"),query);
+	     System.out.println("select the topK");
+	     out.PrintResult(out.getDocumentlist(topKdocids, "Datainput.txt"),query);
+	    
+		
 	}
 }

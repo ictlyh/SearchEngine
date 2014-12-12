@@ -13,33 +13,26 @@ public class Query {
 	public Query(String query) {
 		super();
 		this.query = query;
-		querywords=new ArrayList<String>();
-		querywords=null;
+		querywords = getQueryTerms(new StopWords("stopwords.txt"));
 	}
 	
-	public void  getQueryTerms(StopWords stopwords){
-		//List<String> result = null;
+	public void setQuerywords(List<String> words) {
+		querywords=words;
+	}
+	public List<String> getQuerywords() {
+		return querywords;
+	}
+	public String getQuery() {
+		return query;
+	}
+	private List<String>  getQueryTerms(StopWords stopwords){
+		List<String> result = new ArrayList<String>();
 		Tokenize tokenize = new Tokenize(query, "UTF-8");
 		while(tokenize.hasMoreTokens()){
 			String term = tokenize.nextToken();
 			if(!stopwords.isStopword(term))
-				querywords.add(term);//(term + " ");
+				result.add(term);//(term + " ");
 		}
-		//return querywords;
-	}
-	
-	public void setquerywords(List<String> words)
-	{
-		querywords=words;
-	}
-
-	public String getQuery()
-	{
-		return query;
-	}
-	
-	public List<String> getQuerywords()
-	{
-		return querywords;
+		return result;
 	}
 }

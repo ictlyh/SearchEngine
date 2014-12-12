@@ -3,63 +3,48 @@
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.ListIterator;
+
 import ac.ucas.ir.index.*;
 import ac.ucas.ir.search.similarity.*;
 
 public class IndexSearcher {
-	public List<Integer> getDocIDListByTerm(String term,PostList list){
-	      
-	      //  Iterator<PostListNode>iter;
-	      List<Integer> docIDlist=new ArrayList<Integer>(); 
-	     
-	        docIDlist=list.getDocIDListByTerm(term);
-	        return docIDlist;          
+	public List<Integer> getDocIDListByTerm(String term,PostList list) {
+		return list.getDocIDListByTerm(term);    
 		}
 		
 		public List<Integer> unionDocIDList(List<Integer> ls1,List<Integer> ls2){
 			 List<Integer> unionlist=new ArrayList<Integer>();
-			 //unionlist=null;
-			 Iterator<Integer> ite1;
-			 Iterator<Integer> ite2;
-			 if(ls1.size()<=ls2.size())
-			 {
-			     ite1 = ls1.iterator();
-			     ite2 = ls2.iterator();
-			 }else
-			 {
-				 ite1 = ls2.iterator();
-				 ite2 = ls1.iterator();
+			 if(ls1 == null){
+				 return ls2;
+			 }
+			 if(ls2 == null){
+				 return ls1;
 			 }
 			 
-			 Integer node1=new Integer(-1);
-			 Integer node2=new Integer(-1);
-	 		 while(true)
-			 {  
-				if(node1.intValue()==node2.intValue())
-				{
-					if(node1.intValue()>-1)
-					{
-						unionlist.add(node1);
-					}
-					if(!ite1.hasNext())
-						break;
-					 node1=ite1.next();
-				   if(!ite2.hasNext())
-					  break;
-				     node2=ite2.next();
-				}
-				if(node1.intValue()>node2.intValue())
-				{
-					 if(!ite2.hasNext())
-						  break;
-					 node2=ite2.next();
-				}
-				if(node1.intValue()<node2.intValue())
-				{
-					 if(!ite1.hasNext())
-						  break;
-					 node1=ite1.next();
-				}
+			 ListIterator<Integer> ite1 = ls1.listIterator();
+			 ListIterator<Integer> ite2 = ls2.listIterator();
+			 int tmp1, tmp2;
+			 while(ite1.hasNext() && ite2.hasNext()){
+				 tmp1 = ite1.next().intValue();
+				 tmp2 = ite1.next().intValue();
+				 if(tmp1 == tmp2){
+					 unionlist.add(tmp1);
+				 }
+				 else if(tmp1 < tmp2){
+					 unionlist.add(tmp1);
+					 ite2.previous();
+				 }
+				 else{
+					 unionlist.add(tmp2);
+					 ite1.previous();
+				 }
+			 }
+			 while(ite1.hasNext()) {
+				 unionlist.add(ite1.next().intValue());
+			 }
+			 while(ite2.hasNext()) {
+				 unionlist.add(ite2.next().intValue());
 			 }
 			return unionlist;
 		}
@@ -67,57 +52,19 @@ public class IndexSearcher {
 		//寰楀埌鎵€鏈夊€欓€塈D閾?
 		
 		public  List<Integer> getdocIDlistbyquery(Query query,PostList list)
-		{
-			Iterator<String>ites=query.getQuerywords().iterator();
-		//	System.out.print("words siez");
-		//	System.out.println(query.getQuerywords().size());
-			List<Integer> Ls1=new ArrayList<Integer>();
-			List<Integer> Ls2=new ArrayList<Integer>();
-			List<Integer> temp=new ArrayList<Integer>();
-			Ls1=null;
-			Ls2=null;
-			int flag=0;
-			
-			while(ites.hasNext())
-			{
-				if(flag==0)
-				{
-					flag=1;
-					Ls1=getDocIDListByTerm(ites.next(),list);
-					if( query.getQuerywords().size()==1)
-						return Ls1;
-					
-					  /* Iterator<Integer>ite1=Ls1.iterator();
-					   System.out.println("Ls1");
-					    while(ite1.hasNext())
-					    {
-					    	System.out.println(ite1.next().intValue());
-					    }*/
-				}
-				if(ites.hasNext())
-				{
-				  Ls2=getDocIDListByTerm(ites.next(),list);
-				  
-				 /* 
-				  Iterator<Integer>ite2=Ls2.iterator();
-				  System.out.println("Ls2");
-				    while(ite2.hasNext())
-				    {
-				    	System.out.println(ite2.next().intValue());
-				    }*/
-				}
-				  
-				  temp=unionDocIDList(Ls1,Ls2);
-				  Ls1=temp;
-			
+		{			
+			List<Integer> result = null;
+			Iterator<String> ite = query.getQuerywords().iterator();
+			while(ite.hasNext()){
+				result = unionDocIDList(result, getDocIDListByTerm(ite.next(), list));
 			}
-			return Ls1;
+			return result;
 		}
 		
 		
-		public float getTermEvaluateOfDocument(String term,int docID){
+		/*public float getTermEvaluateOfDocument(String term,int docID){
 			return 0;
-		}
+		}*/
 		
 		//璁＄畻鐗瑰畾鏂囩珷涓庢煡璇㈢殑鐩稿叧搴︺€?
 		
@@ -128,8 +75,11 @@ public class IndexSearcher {
 		}
 		
 		//璁＄畻鎵€鏈夊€欓€塪ocs 鐨刬d鍜岀浉鍏冲害銆?
-		public List<DocidTfidfsimilar> CaluAlldocIDlist(List<Integer>docIDlist,int documentsize,PostList list,Query query )
-		{ 
+		public List<DocidTfidfsimilar> CaluAlldocIDlist(List<Integer> docIDlist,int documentsize,PostList list,Query query )
+		{
+			if(docIDlist == null) {
+				return null;
+			}
 			Iterator<Integer> ited=docIDlist.iterator();
 			List<DocidTfidfsimilar> docID_weightlist=new ArrayList<DocidTfidfsimilar>();
 			int docID=0;
@@ -142,7 +92,7 @@ public class IndexSearcher {
 		}
 		
 		public List<Integer> getTopKDocuments(List<Integer> docList,int K){
-			if(K>docList.size())
+			if(docList == null || K > docList.size())
 				return docList;
 			else
 		      return docList.subList(0, K);

@@ -60,7 +60,7 @@ public class Demo {
 		
 		Calendar start = Calendar.getInstance();
 		DataInput dataInput = new DataInput();
-		dataInput.loadDocumentFromFile("datainput.txt");
+		dataInput.loadDocumentFromFile("testinput.txt");
 		Calendar end = Calendar.getInstance();
 		System.out.println("Building index using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " millseconds");
 
@@ -72,28 +72,23 @@ public class Demo {
 	//	index.print();
 		
 		IndexSearcher searcher=new IndexSearcher(); // init a searcher
-		int documentsize=22;//the total number of documents;
+		int documentsize=10;//the total number of documents;
 		 
-		Query query =new Query(new String("主教练"));
+		Query query =new Query(new String("张三"));
 	    //query.getQueryTerms(stopwords);  I need stopwords ,so I just choose the setquerywords without it later;
-		List<String>words=new ArrayList<String>();
+		//List<String>words=new ArrayList<String>();
 		//words.add(new String("主教练"));
-		words.add(new String("拜伦"));
+		//words.add(new String("拜伦"));
 		//words.add(new String("林书豪"));
-		 query.setquerywords(words);
-		 List<Integer> docidl=new ArrayList<Integer>();
-		    
-		 docidl=searcher.getdocIDlistbyquery(query, index);
-		 List<Integer> docids=new ArrayList<Integer>(); //the all  responds;
-		    //int documentsize=3;
-		 List<Integer> topKdocids=new ArrayList<Integer>();
-	     docids=searcher.search(query, docidl, documentsize, index);
-	     int topK=5;
-	     topKdocids=searcher.getTopKDocuments(docids, topK); 
+		 //query.setquerywords(words);
+		 List<Integer> docidl = searcher.getdocIDlistbyquery(query, index);
+		 List<Integer> docids = searcher.search(query, docidl, documentsize, index); //the all  responds;
+	     int topK=1;
+	     List<Integer> topKdocids = searcher.getTopKDocuments(docids, topK); 
 	     Dataout out=new Dataout();
-	     out.PrintResult(out.getDocumentlist(docids, "Datainput.txt"),query);
+	     out.PrintResult(out.getDocumentlist(docids, "testinput.txt"),query);
 	     System.out.println("select the topK");
-	     out.PrintResult(out.getDocumentlist(topKdocids, "Datainput.txt"),query);
+	     out.PrintResult(out.getDocumentlist(topKdocids, "testinput.txt"),query);
 	    
 		
 	}

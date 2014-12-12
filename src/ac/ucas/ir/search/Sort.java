@@ -14,6 +14,9 @@ public class Sort {
 	}
 	public List<Integer> sortBytfidfsimilar(List<DocidTfidfsimilar> doc_weightlist)
 	{
+		if(doc_weightlist == null) {
+			return null;
+		}
 		  Collections.sort(doc_weightlist);
 		  List<Integer> docIDList=new ArrayList<Integer>();
 		  Iterator<DocidTfidfsimilar>ited=doc_weightlist.iterator();

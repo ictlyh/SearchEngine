@@ -4,7 +4,7 @@ import java.util.List;
 import ac.ucas.ir.index.*;
 
 public class TfidfSimilarity {
-	private float ifidfsimilar;
+	private float tfidfSimilar;
 	private int docID;
 	
 	public TfidfSimilarity(int docID)
@@ -14,7 +14,7 @@ public class TfidfSimilarity {
 	
 	public float getTfidfsimilar()
 	{
-		return ifidfsimilar;
+		return tfidfSimilar;
 	}
 	
 	public float Calutwofvector(List<Float>v1,List<Float>v2)
@@ -24,7 +24,7 @@ public class TfidfSimilarity {
 		float result=0;
 		while(itev1.hasNext()&&itev2.hasNext())
 		{
-			result+=itev1.next().floatValue()*itev2.next().floatValue();
+			result += itev1.next().floatValue() * itev2.next().floatValue();
 		}
 		return result;
 	}
@@ -41,7 +41,7 @@ public class TfidfSimilarity {
     	 float temp1=(float) Math.sqrt(Calutwofvector(docitf.getIfweight(),docitf.getIfweight()));
     	 float temp2=(float) Math.sqrt(Calutwofvector(termtfidf.getTfidfweight(),termtfidf.getTfidfweight()));
     	 result=result/(temp1*temp2); 
-    	 ifidfsimilar=result;
+    	 tfidfSimilar=result;
     }
 
 }

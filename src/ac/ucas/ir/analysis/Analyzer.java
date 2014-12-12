@@ -10,8 +10,10 @@ public class Analyzer {
 	// 定义接口CLibrary，继承自com.sun.jna.Library
 	private interface CLibrary extends Library {
 	// 定义并初始化接口的静态变量
+		/*CLibrary Instance = (CLibrary) Native.loadLibrary(
+				"E:\\StudyFiles\\Workspace\\Eclipse\\SearchEngine\\lib\\win64\\NLPIR", CLibrary.class);*/
 		CLibrary Instance = (CLibrary) Native.loadLibrary(
-				"E:\\StudyFiles\\Workspace\\Eclipse\\SearchEngine\\lib\\win64\\NLPIR", CLibrary.class);
+		"/home/snow/Desktop/SearchEngine/lib/linux64/libNLPIR.so", CLibrary.class);
 			
 		public int NLPIR_Init(String sDataPath, int encoding,String sLicenceCode);
 		public String NLPIR_ParagraphProcess(String sSrc, int bPOSTagged);

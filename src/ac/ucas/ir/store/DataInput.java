@@ -41,12 +41,14 @@ public class DataInput {
 				}
 				//每处理n篇文档后将索引写入文件
 				if(numOfDoc % 1000 == 0){
-					indexOutput.writeIndexToFile(index.getIndex(), "index\\part" + part + ".txt");
+					//indexOutput.writeIndexToFile(index.getIndex(), "index\\part" + part + ".txt");
+					indexOutput.writeIndexToFile(index.getIndex(), "index/part" + part + ".txt");
 					part++;
 					index.clear();
 				}
 			}
-			indexOutput.writeIndexToFile(index.getIndex(), "index\\part" + part + ".txt");
+			//indexOutput.writeIndexToFile(index.getIndex(), "index\\part" + part + ".txt");
+			indexOutput.writeIndexToFile(index.getIndex(), "index/part" + part + ".txt");
 			part++;
 			index.clear();
 		} catch (FileNotFoundException e) {

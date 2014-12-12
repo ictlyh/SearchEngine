@@ -132,13 +132,13 @@ public class Dataout {
 			return ;
 		}
 		Iterator<Document> iteDoc = documents.iterator();
-		System.out.println("Find " + documents.size() + " related documents");
-		System.out.println("Query size: " + query.getQuerywords().size() + "\nThe query terms are:");
+		System.out.println(documents.size());
+		System.out.println(query.getQuerywords().size());
 		Iterator<String> itestr=query.getQuerywords().iterator();
 		while(itestr.hasNext()) {
-			System.out.print(itestr.next() + " ");
+			System.out.println(itestr.next());
 		}
-		System.out.println("\nDocuments:");
+		//System.out.println("\nDocuments:");
 		while(iteDoc.hasNext()) {
 			Document doc = iteDoc.next();
 			String line = new String();

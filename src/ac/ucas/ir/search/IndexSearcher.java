@@ -27,7 +27,7 @@ public class IndexSearcher {
 			 int tmp1, tmp2;
 			 while(ite1.hasNext() && ite2.hasNext()){
 				 tmp1 = ite1.next().intValue();
-				 tmp2 = ite1.next().intValue();
+				 tmp2 = ite2.next().intValue();
 				 if(tmp1 == tmp2){
 					 unionlist.add(tmp1);
 				 }

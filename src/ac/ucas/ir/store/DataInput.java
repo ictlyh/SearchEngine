@@ -1,30 +1,31 @@
 package ac.ucas.ir.store;
 
 import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 import ac.ucas.ir.document.Document;
 import ac.ucas.ir.document.Field;
 import ac.ucas.ir.index.IndexWriter;
-import ac.ucas.ir.util.Skip;
 
 public class DataInput {
 
 	public void loadDocumentFromFile(String filePath){
 		IndexWriter index = new IndexWriter();
 		IndexOutput indexOutput = new IndexOutput();
-		//Skip skip = new Skip();
 		int numOfDoc = 0;
 		int part = 0;
-		index.loadStopwords("stopwords.txt");
-		FileInputStream inputStream = null;
+		index.loadStopwords();
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(new File(filePath));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		Scanner sc = null;
 		try {
-			inputStream = new FileInputStream(filePath);
-			sc = new Scanner(inputStream, "UTF-8");
+			sc = new Scanner(fis, "UTF-8");
 			while (sc.hasNextLine()) {
-				//String line = skip.skip(sc.nextLine());
 				String line = sc.nextLine();
 				++numOfDoc;
 				if(line == null || line.length() == 0){
@@ -41,26 +42,15 @@ public class DataInput {
 				}
 				//每处理n篇文档后将索引写入文件
 				if(numOfDoc % 1000 == 0){
-					//indexOutput.writeIndexToFile(index.getIndex(), "index\\part" + part + ".txt");
 					indexOutput.writeIndexToFile(index.getIndex(), "index/part" + part + ".txt");
 					part++;
 					index.clear();
 				}
 			}
-			//indexOutput.writeIndexToFile(index.getIndex(), "index\\part" + part + ".txt");
 			indexOutput.writeIndexToFile(index.getIndex(), "index/part" + part + ".txt");
 			part++;
 			index.clear();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}finally{
-			if (inputStream != null) {
-		        try {
-					inputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		    }
 		    if (sc != null) {
 		        sc.close();
 		    }

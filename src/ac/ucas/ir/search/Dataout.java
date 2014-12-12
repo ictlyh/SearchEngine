@@ -1,4 +1,5 @@
 ﻿package ac.ucas.ir.search;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -65,13 +66,16 @@ public class Dataout {
 		int numOfDoc = 0;
 		Iterator<Integer> itel=incrlist.iterator();
 		int	seq = itel.next().intValue();
-
 		
-		FileInputStream inputStream = null;
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(new File(filePath));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		Scanner sc = null;
 		try {
-			inputStream = new FileInputStream(filePath);
-			sc = new Scanner(inputStream, "UTF-8");
+			sc = new Scanner(fis, "UTF-8");
 			while (sc.hasNextLine()) {
 				numOfDoc++;
 				String line = sc.nextLine();
@@ -89,12 +93,10 @@ public class Dataout {
 					 }
 				}
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}finally{
-			if (inputStream != null) {
+			if (fis != null) {
 		        try {
-					inputStream.close();
+					fis.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

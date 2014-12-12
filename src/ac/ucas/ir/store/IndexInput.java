@@ -1,6 +1,7 @@
 package ac.ucas.ir.store;
 
 import java.io.*;
+
 import ac.ucas.ir.index.PostList;
 import ac.ucas.ir.index.PostListNode;
 import ac.ucas.ir.index.PostListRecord;
@@ -20,6 +21,7 @@ public class IndexInput {
 		} catch (UnsupportedEncodingException | FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
+
 		String line = null;
 		try {
 			line = br.readLine();

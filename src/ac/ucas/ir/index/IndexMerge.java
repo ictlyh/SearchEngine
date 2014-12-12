@@ -7,6 +7,12 @@ import ac.ucas.ir.util.SetMerge;
 public class IndexMerge {
 
 	public PostList indexMerge(PostList pl1, PostList pl2){
+		if(pl1 == null) {
+			return pl2;
+		}
+		if(pl2 == null) {
+			return pl1;
+		}
 		PostList index = new PostList();
 		Set<String> key1 = pl1.getIndex().keySet();
 		Set<String> key2 = pl2.getIndex().keySet();

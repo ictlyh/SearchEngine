@@ -1,28 +1,16 @@
 package ac.ucas.ir.analysis;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 public class StopWords {
-	private String stopwordFilePath;
 	private String stopwords;
 	
-	public StopWords(String filePath){
-		this.stopwordFilePath = filePath;
+	public StopWords(){
 		readFileIntoString();
-	}
-	
-	public String getStopwordFilePath() {
-		return stopwordFilePath;
-	}
-	
-	public void setStopwordFilePath(String stopwordFilePath) {
-		this.stopwordFilePath = stopwordFilePath;
 	}
 	
 	public String getStopwords() {
@@ -38,12 +26,9 @@ public class StopWords {
 	}
 	
 	private void readFileIntoString(){
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(new File(stopwordFilePath));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
+		InputStream fis = null;
+		//fis = new FileInputStream(new File(stopwordFilePath));
+		fis = this.getClass().getResourceAsStream("/res/stopwords.txt");
 		stopwords = "";
 		BufferedReader br = null;
 		try {

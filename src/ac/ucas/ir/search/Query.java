@@ -13,7 +13,7 @@ public class Query {
 	public Query(String query) {
 		super();
 		this.query = query;
-		querywords = getQueryTerms(new StopWords("stopwords.txt"));
+		querywords = getQueryTerms(new StopWords());
 	}
 	
 	public void setQuerywords(List<String> words) {

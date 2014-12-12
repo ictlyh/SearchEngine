@@ -16,8 +16,8 @@ public class IndexWriter {
 		postList = new PostList();
 	}
 	
-	public void loadStopwords(String path){
-		stopwords = new StopWords(path);
+	public void loadStopwords(){
+		stopwords = new StopWords();
 	}
 	
 	public PostList getIndex(){

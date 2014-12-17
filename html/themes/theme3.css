@@ -1,0 +1,32 @@
+
+	/*背景图片*/
+	body{background-image:url(../pic/3.jpg);}
+
+	/*style选单位置_字体颜色*/
+	.main_nav{margin-top:93px;margin-left:23px;}
+	.main_nav a{color:red;}
+	.searcharea{margin-top:333px;margin-left:533px;}
+
+
+/********************************************css3新特性。。**********************************************/
+	.nav_a{
+	border-radius: 8px;
+	-webkit-animation: fadeinout3 2.3s ease infinite; 
+	}
+
+	.sub_nav a:hover{
+	border-radius: 6px;
+	-webkit-animation: fadeinout3 1.8s ease infinite; 
+	}
+
+	@-webkit-keyframes fadeinout3{
+	0% {box-shadow: 0 0 10px rgba(233,3,3, 0.5);}
+	50% {box-shadow: 0 0 10px rgba(233,3,3, 0.1);}
+	100% {box-shadow: 0 0 10px rgba(233,3,3, 0.5);}
+	}
+
+/**********************************************************************************************************/
+	/*输入框位置*/
+	
+	
+	/**/

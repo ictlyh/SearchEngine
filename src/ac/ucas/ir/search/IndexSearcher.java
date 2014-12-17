@@ -69,24 +69,25 @@ public class IndexSearcher {
 		//璁＄畻鐗瑰畾鏂囩珷涓庢煡璇㈢殑鐩稿叧搴︺€?
 		
 		public float getQueryEvaluateOfDocument(Query query,int docID,PostList list,int documentsize){
-			TfidfSimilarity tfidfsimilar=new TfidfSimilarity(docID);
-			tfidfsimilar.Calutfidfsimilarity(documentsize, list, query.getQuerywords());
-			return tfidfsimilar.getTfidfsimilar();
+			QueryTfidfnew querytfidf=new QueryTfidfnew(query.getQuerywords(),docID);
+			querytfidf.Caluitfdf(list, documentsize);
+			return querytfidf.getTfidfweight(); 
+
 		}
 		
 		//璁＄畻鎵€鏈夊€欓€塪ocs 鐨刬d鍜岀浉鍏冲害銆?
-		public List<DocidTfidfsimilar> CaluAlldocIDlist(List<Integer> docIDlist,int documentsize,PostList list,Query query )
+		public List<DoctermsTfidf> CaluAlldocIDlist(List<Integer> docIDlist,int documentsize,PostList list,Query query )
 		{
 			if(docIDlist == null) {
 				return null;
 			}
 			Iterator<Integer> ited=docIDlist.iterator();
-			List<DocidTfidfsimilar> docID_weightlist=new ArrayList<DocidTfidfsimilar>();
+			List<DoctermsTfidf> docID_weightlist=new ArrayList<DoctermsTfidf>();
 			int docID=0;
 			while(ited.hasNext())
 			{  
 				docID=ited.next().intValue();
-				docID_weightlist.add(new DocidTfidfsimilar(docID,getQueryEvaluateOfDocument(query,docID,list,documentsize)));
+				docID_weightlist.add(new DoctermsTfidf(docID,getQueryEvaluateOfDocument(query,docID,list,documentsize)));
 			}
 			return docID_weightlist;
 		}

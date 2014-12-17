@@ -66,16 +66,6 @@ public class PostListRecord {
 		}
 		return false;
 	}
-	
-	public void delPostListNodeByDocID(int docID){
-		for(int i = 0; i < postListRecord.size(); i++){
-			if(postListRecord.get(i).getDocID() == docID){
-				postListRecord.remove(i);
-				df--;
-				break;
-			}		
-		}
-	}
 
 	public List<Integer> getDocIDs(){
 		List<Integer> result = new ArrayList<Integer>();

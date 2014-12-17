@@ -11,7 +11,7 @@ public class Demo {
 		
 		Calendar start = Calendar.getInstance();
 		DataInput dataInput = new DataInput();
-		dataInput.loadDocumentFromFile("testinput.txt");
+		dataInput.loadDocumentFromFile("input.txt");
 		Calendar end = Calendar.getInstance();
 		System.out.println("Building index using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " millseconds");
 
@@ -19,21 +19,26 @@ public class Demo {
 		IndexReader ir = new IndexReader();
 		PostList index = ir.loadIndexFromDirectory("index");
 		end = Calendar.getInstance();
-		System.out.println("loading index from file using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " millseconds");
+		System.out.println("loading index using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " millseconds");
 		
-		IndexSearcher searcher=new IndexSearcher(); // init a searcher
-		int documentsize=10;//the total number of documents;
-		 
+		/*IndexSearcher searcher=new IndexSearcher(); // init a searcher
+		int documentsize = 93486;//the total number of documents;
+		
+		start = Calendar.getInstance();
 		Query query =new Query(new String("主帅拜伦"));
-		 List<Integer> docidl = searcher.getdocIDlistbyquery(query, index);
-		 List<Integer> docids = searcher.search(query, docidl, documentsize, index); //the all  responds;
-		 Dataout out=new Dataout();
-	     out.PrintResult(out.getDocumentlist(docids, "testinput.txt"),query);
-	     /*int topK=1;
-	     List<Integer> topKdocids = searcher.getTopKDocuments(docids, topK); 
-	     System.out.println("select the topK");
-	     out.PrintResult(out.getDocumentlist(topKdocids, "testinput.txt"),query);*/
-	    
+		List<Integer> docidl = searcher.getdocIDlistbyquery(query, index);
+		List<Integer> docids = searcher.search(query, docidl, documentsize, index); //the all  responds;
+		Dataout out=new Dataout();
+	    out.PrintResult(out.getDocumentlist(docids, "newest.json"),query);
+	    end = Calendar.getInstance();
+		System.out.println("Search using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " millseconds");
 		
+		start = Calendar.getInstance();
+	    int topK = 5;
+	    List<Integer> topKdocids = searcher.getTopKDocuments(docids, topK); 
+	    System.out.println("select the topK");
+	    out.PrintResult(out.getDocumentlist(topKdocids, "newest.json"),query);
+	    end = Calendar.getInstance();
+		System.out.println("Select topK using " + (end.getTimeInMillis() - start.getTimeInMillis()) + " millseconds");*/
 	}
 }

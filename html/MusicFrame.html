@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+	<body>
+	<script type="text/javascript" src="./javascript/function.js"></script>
+	<audio id="music" src="" autoplay loop></audio>
+	<script type="text/javascript">
+		if(getCookie('themeid')=="")
+			choice=4;
+		choice=getCookie('themeid');
+		document.getElementById('music').src ='./misc/'+choice+'.mp3';
+	</script>
+	</body>
+<html>
+
+
+
+

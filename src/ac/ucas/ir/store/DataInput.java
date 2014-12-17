@@ -41,7 +41,8 @@ public class DataInput {
 					System.out.println("error occur while parsing line " + numOfDoc + line);
 				}
 				//每处理n篇文档后将索引写入文件
-				if(numOfDoc % 1000 == 0){
+				//if(numOfDoc % 1000 == 0){
+				if(numOfDoc % 2000 == 0){
 					indexOutput.writeIndexToFile(index.getIndex(), "index/part" + part + ".txt");
 					part++;
 					index.clear();
